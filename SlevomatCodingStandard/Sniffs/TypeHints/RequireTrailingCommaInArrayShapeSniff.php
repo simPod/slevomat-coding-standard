@@ -10,7 +10,9 @@ use PHPStan\PhpDocParser\Lexer\Lexer;
 use SlevomatCodingStandard\Helpers\AnnotationHelper;
 use SlevomatCodingStandard\Helpers\DocCommentHelper;
 use SlevomatCodingStandard\Helpers\FixerHelper;
+use function assert;
 use function in_array;
+use function is_int;
 use function rsort;
 use function strlen;
 use function substr_replace;
@@ -95,6 +97,8 @@ class RequireTrailingCommaInArrayShapeSniff implements Sniff
 	{
 		$startIndex = $shape->getAttribute(Attribute::START_INDEX);
 		$endIndex = $shape->getAttribute(Attribute::END_INDEX);
+		assert(is_int($startIndex));
+		assert(is_int($endIndex));
 
 		// Parenthesized shapes include their parentheses in the node's indexed range.
 		while ($tokens[$startIndex][Lexer::TYPE_OFFSET] !== Lexer::TOKEN_OPEN_CURLY_BRACKET) {
